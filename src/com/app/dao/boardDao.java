@@ -48,7 +48,7 @@ public class boardDao extends CommonDao {
 
 		try {
 			rs = openConnection().executeQuery(sql);
-			result = rs.next(); // 게시글 추가시 ture
+			result = rs.next(); // 게시글 추가시 true
 		} catch (SQLException e) {
 			System.err.println(e);
 			result = false; // 게시글 추가 실패시 false

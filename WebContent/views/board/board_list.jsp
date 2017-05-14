@@ -36,7 +36,6 @@
 						%>
 						<li><a href="/classroom_rental/adminRentalMng.do">강의실 대여 관리</a></li>
 						<li><a href="/classroom_rental/classroomRentalList.do">강의실 대여</a></li>
-						<li><a href="/classroom_rental/views/admin/notice_mng.jsp">공지사항 등록</a></li>
 						<li class="active"><a href="/classroom_rental/boardList.do">게시판</a></li>
 						<li><a href="/classroom_rental/userRentalMng.do">나의 신청현황</a></li>
 						<li><a href="/classroom_rental/logout.do">로그아웃</a></li>
@@ -84,7 +83,7 @@
 						    	<c:forEach items="${boardList}" var="board" varStatus="status">
 						    		<tr>
 						    			<!-- 글번호 -->
-						    			<td class="text-center">${status.count}</td>
+						    			<td class="text-center">${(fn:length(boardList)+1) - status.count}</td>
 						    			<!-- 글제목 -->
 										<td><a href="/classroom_rental/boardPostRead.do?board_index=${board.board_index}">${board.board_title}</a></td>
 						    			<!-- 글쓴이 -->
@@ -116,7 +115,7 @@
 	<footer>
 		<div class="container">
 			<p>
-				<span>Copyright © 2016 | <a href="https://www.bible.ac.kr">bible.ac.kr</a></span>
+				<span>Copyright © 2017 | <a href="https://www.bible.ac.kr">bible.ac.kr</a></span>
 				<span style="float: right;"><a href="/classroom_rental/views/main/site_map.jsp">+사이트 맵</a></span>
 			</p>
 		</div>

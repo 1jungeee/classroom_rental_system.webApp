@@ -1,17 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <head>
-	<meta charset="UTF-8">
-	<title>강의실 예약 웹 어플리케이션 - 강의실 예약현황</title>
-    <!-- jquery lib load -->
-    <script type="text/javascript" src="/classroom_rental/resources/lib/jquery/jquery-3.1.1.min.js"></script>
-    <!-- bootstrap lib load -->
-    <link rel="stylesheet" href="/classroom_rental/resources/lib/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/classroom_rental/resources/lib/bootstrap/css/bootstrap-theme.min.css">
-    <script type="text/javascript" src="/classroom_rental/resources/lib/bootstrap/js/bootstrap.min.js"></script>
-    <!-- main css load -->
-	<link rel="stylesheet" href="/classroom_rental/resources/lib/default/main-style.css">
+<meta charset="UTF-8">
+<title>강의실 예약 웹 어플리케이션 - 강의실 예약현황</title>
+<!-- jquery lib load -->
+<script type="text/javascript"
+	src="/classroom_rental/resources/lib/jquery/jquery-3.1.1.min.js"></script>
+<!-- bootstrap lib load -->
+<link rel="stylesheet"
+	href="/classroom_rental/resources/lib/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="/classroom_rental/resources/lib/bootstrap/css/bootstrap-theme.min.css">
+<script type="text/javascript"
+	src="/classroom_rental/resources/lib/bootstrap/js/bootstrap.min.js"></script>
+<!-- moment(날짜관련) lib load -->
+<script type="text/javascript"
+	src="/classroom_rental/resources/lib/moment/moment.js"></script>
+<!-- main css load -->
+<link rel="stylesheet"
+	href="/classroom_rental/resources/lib/default/main-style.css">
 </head>
 <body>
 	<div id="wrap">
@@ -28,29 +37,33 @@
 						<li><a href="/classroom_rental/">홈</a></li>
 						<%
 							/* 세션이 존재할 경우 */
-							if (session.getAttribute("isAdmin") != null) { 
+							if (session.getAttribute("isAdmin") != null) {
 								/* 관리자일 경우 */
 								if (session.getAttribute("isAdmin").equals("1")) {
 						%>
-						<li><a href="/classroom_rental/adminRentalMng.do">강의실 대여 관리</a></li>
-						<li class="active"><a href="/classroom_rental/classroomRentalList.do">강의실 대여</a></li>
-						<li><a href="/classroom_rental/views/admin/notice_mng.jsp">공지사항 등록</a></li>
+						<li><a href="/classroom_rental/adminRentalMng.do">강의실 대여
+								관리</a></li>
+						<li class="active"><a
+							href="/classroom_rental/classroomRentalList.do">강의실 대여</a></li>
 						<li><a href="/classroom_rental/boardList.do">게시판</a></li>
 						<li><a href="/classroom_rental/userRentalMng.do">나의 신청현황</a></li>
 						<li><a href="/classroom_rental/logout.do">로그아웃</a></li>
-						<li style="float: right;"><a href="#"><%=session.getAttribute("name")%>님 환영합니다.</a></li>
+						<li style="float: right;"><a href="#"><%=session.getAttribute("name")%>님
+								환영합니다.</a></li>
 						<%
-								/* 일반 사용자일 경우 */
+							/* 일반 사용자일 경우 */
 								} else {
 						%>
-						<li class="active"><a href="/classroom_rental/classroomRentalList.do">강의실 대여</a></li>
+						<li class="active"><a
+							href="/classroom_rental/classroomRentalList.do">강의실 대여</a></li>
 						<li><a href="/classroom_rental/boardList.do">게시판</a></li>
 						<li><a href="/classroom_rental/userRentalMng.do">나의 신청현황</a></li>
 						<li><a href="/classroom_rental/logout.do">로그아웃</a></li>
-						<li style="float: right;"><a href="#"><%=session.getAttribute("name")%>님 환영합니다.</a></li>
+						<li style="float: right;"><a href="#"><%=session.getAttribute("name")%>님
+								환영합니다.</a></li>
 						<%
 							}
-							/* 세션이 없을 경우 */
+								/* 세션이 없을 경우 */
 							} else {
 						%>
 						<script>alert("회원만 가능합니다. 로그인 후 이용해주세요."); location.href="/classroom_rental/views/main/login.jsp";</script>
@@ -61,23 +74,26 @@
 				</div>
 			</div>
 			<div class="content">
-				<hr><br>
+				<hr>
+				<br>
 				<!-- 카테고리 별 검색 -->
 				<form class="form-inline">
 					<div class="form-group" style="float: right;">
 						<div class="form-group">
-							<input type="week" id="category1" name="category1"
-								class="form-control" value="${category1}" style="width:180px;">&nbsp;
+							<input type="week" id="category1" name="category1" class="form-control" value="${category1}"
+								style="width: 180px;">&nbsp;
 						</div>
 						<div class="form-group">
-							<select class="form-control" id="category2" name="category2" onchange="category2Func()" style="width:105px;">
+							<select class="form-control" id="category2" name="category2"
+								onchange="category2Func()" style="width: 105px;">
 								<c:forEach items="${category2}" var="building">
 									<option value="${building}">${building}</option>
 								</c:forEach>
 							</select>&nbsp;
 						</div>
 						<div class="form-group">
-							<select class="form-control" id="category3" name="category3" onchange="category3Func()" style="width:145px;">
+							<select class="form-control" id="category3" name="category3"
+								onchange="category3Func()" style="width: 145px;">
 								<c:forEach items="${category3}" var="classRoom">
 									<option value="${classRoom.id},${classRoom.name}">${classRoom.name}</option>
 								</c:forEach>
@@ -85,7 +101,8 @@
 						</div>
 						<div class="form-group">
 							<input type="text" id="category4" name="category4"
-								class="form-control"  disabled placeholder="Enter search" style="width:145px;">&nbsp;
+								class="form-control" disabled placeholder="Enter search"
+								style="width: 145px;">&nbsp;
 						</div>
 						<div class="form-group">
 							<button type="button" class="btn btn-default" onclick="search()">
@@ -94,23 +111,32 @@
 						</div>
 					</div>
 				</form>
-				<br><br><br>
+				<br>
+				<br>
+				<br>
 				<!-- 강의실 예약 현황 리스트 -->
-				<div style="padding-bottom:7px;">
+				<div style="padding-bottom: 7px;">
 					<ul class="nav nav-pills">
-						<li><button type="button" class="btn btn-circle btn-sm" style="background-color: #f2dede">대기</button></li>
-						<li><button type="button" class="btn btn-circle btn-sm" style="background-color: #d9edf7">승인</button></li>
-						<li><button type="button" class="btn btn-circle btn-sm" style="background-color: #fcf8e3">고정</button></li>
+						<li><button type="button" class="btn btn-circle btn-sm"
+								style="background-color: #f2dede">대기</button></li>
+						<li><button type="button" class="btn btn-circle btn-sm"
+								style="background-color: #d9edf7">승인</button></li>
+						<li><button type="button" class="btn btn-circle btn-sm"
+								style="background-color: #fcf8e3">고정</button></li>
 						<li style="float: right;">
-							<button type="button" class="btn btn-default" onclick="rentalFormOpen()"><span class="glyphicon glyphicon-edit"></span> 대여 신청하기</button>
+							<button type="button" class="btn btn-default" id="dateState"
+								onclick="rentalFormOpen()">
+								<span class="glyphicon glyphicon-edit"></span> 대여 신청하기
+							</button>
 						</li>
 						<li style="float: right;">
-							<button type="button" class="btn btn-default" id="search_btn">${category1}, ${category2[0]}, ${category3[0].name}</button>&nbsp;&nbsp;
+							<button type="button" class="btn btn-default" id="search_btn">${category1},
+								${category2[0]}, ${category3[0].name}</button>&nbsp;&nbsp;
 						</li>
 					</ul>
 				</div>
 				<div id="timetable">
-					<table class="table table-bordered" style="table-layout:fixed;">
+					<table class="table table-bordered" style="table-layout: fixed;">
 						<tr style="background-color: #f0ad4e;">
 							<th class="text-center">시간</th>
 							<th class="text-center">월</th>
@@ -121,7 +147,7 @@
 							<th class="text-center">토</th>
 							<th class="text-center">일</th>
 						</tr>
-					${timetable}
+						${timetable}
 					</table>
 				</div>
 			</div>
@@ -130,39 +156,77 @@
 	<footer>
 		<div class="container">
 			<p>
-				<span>Copyright © 2016 | <a href="https://www.bible.ac.kr">bible.ac.kr</a></span>
-				<span style="float: right;"><a href="/classroom_rental/views/main/site_map.jsp">+사이트 맵</a></span>
+				<span>Copyright © 2017 | <a href="https://www.bible.ac.kr">bible.ac.kr</a></span>
+				<span style="float: right;"><a
+					href="/classroom_rental/views/main/site_map.jsp">+사이트 맵</a></span>
 			</p>
 		</div>
 	</footer>
-	
-	
+
+
 	<!-- 예약하기 Modal-->
 	<div id="rentalModal" class="modal fade" role="dialog">
-		<div class="modal-dialog" style="width:80%">
+		<div class="modal-dialog" style="width: 80%">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">강의실 사용 신청서</h4>
 				</div>
 				<div class="modal-body">
-					<iframe name="rental" src="views/rental/classroom_rental_form.jsp" width="100%" height="800px;" style="border: 0 solid #FFFFFF;"></iframe>
+					<iframe name="rental" src="views/rental/classroom_rental_form.jsp"
+						width="100%" height="800px;" style="border: 0 solid #FFFFFF;"></iframe>
 				</div>
 			</div>
 		</div>
 	</div>
-	
-	
+
+
 	<script>
-	
 	$(document).ready(function() {
 		/* 선택된 카테고리2 내용을 검색창(category3)에 기본값으로  초기화하기 */
 		category3Func();
 	});
 	
-	/* 선택된 카테고리2 내용을 검색창(category3)에 기본값으로  초기화하기 */
+	/* 
+		선택된 카테고리2 내용을 검색창(category3)에 기본값으로  초기화하기
+		날짜 포맷변경
+	*/
 	function category3Func() {
 		document.getElementById("category4").value = $("#category3").val().split(",")[1];
+		var day = '${category1}';
+		var year = day.substr(0,4); // 조회조건의 년도 가져오기
+		var week = day.substr(6,2); // 조회조건의 주 가져오기
+		var m = new moment(); // 날짜 포맷관련 moment 객체 선언
+		m.locale();
+		m.year(year); // 년도 셋팅
+		m.week(week); // 주 셋팅
+
+		//월 : momentArray[0], 일 : momentArray[1], 년 : momentArray[2]
+		var momentArray = m.format('L').split('/'); //'/'기준으로 문자열자르기
+		
+		//월요일을 중심으로한 주차 구하기
+	    var minusDay = 0;  //차일 변수
+	    var wkDtStr = momentArray[2]+""+momentArray[0]+""+momentArray[1]; //주차를 계산할 날짜 
+	    //계산하고 싶은 달 시작일 1일
+	    var stDtStr = wkDtStr.substring(0,6) + "01";
+	    var stDtCal = new Date( stDtStr.substring(0,4) , stDtStr.substring(4,6) , stDtStr.substring(6,8) );
+	    //요일 구하기
+	    var weekCal = new Date( wkDtStr.substring(0,4) , ( wkDtStr.substring(4,6) - 1 ) , wkDtStr.substring(6,8) );
+	    //주차를 계산하고싶은 일 달력 생성
+	    var wkDtCal = new Date( wkDtStr.substring(0,4) , wkDtStr.substring(4,6) , wkDtStr.substring(6,8) );
+	    //매달 시작일에 따른 빼줘야 하는 값
+	    var week = new Array( 1, 0, 5, 4, 3, 2, 1 );
+	    minusDay = wkDtCal.getDate() - stDtCal.getDate() - week[ weekCal.getDay() ] ;
+	    //만약 2일부터 1주차인데 1일을 입력했을경우 혹은 년도가 바뀔경우
+	    if( ( minusDay - week[ weekCal.getDay() ] ) < 0 ){
+	        wkDtCal.setDate( stDtCal.getDate() - 1 );
+	        stDtCal.setDate( stDtCal.getDate() - wkDtCal.getDate() );
+	        minusDay = wkDtCal.getDate() - stDtCal.getDate();
+	    }
+	    var weekNm = minusDay / 7 + 1;
+		
+		$("#search_btn").html(momentArray[2]+"년 "+wkDtCal.getMonth()+"월 "+parseInt(weekNm)+"주	"+", "+$("#category2").val()+", "+$("#category3").val().split(",")[1]);
+		
 	}
 	
 
@@ -208,7 +272,40 @@
 	
 	/* 검색하기 비동기통신이 성공일 경우 */
 	function ajaxSearchS(resdata) {
-		$("#search_btn").html($("#category1").val()+", "+$("#category2").val()+", "+$("#category3").val().split(",")[1]);
+
+		var day = $("#category1").val();
+		var year = day.substr(0,4); // 조회조건의 년도 가져오기
+		var week = day.substr(6,2); // 조회조건의 주 가져오기
+		var m = new moment(); // 날짜 포맷관련 moment 객체 선언
+		m.locale();
+		m.year(year); // 년도 셋팅
+		m.week(week); // 주 셋팅
+
+		//월 : momentArray[0], 일 : momentArray[1], 년 : momentArray[2]
+		var momentArray = m.format('L').split('/'); //'/'기준으로 문자열자르기
+		
+		//월요일을 중심으로한 주차 구하기
+	    var minusDay = 0;  //차일 변수
+	    var wkDtStr = momentArray[2]+""+momentArray[0]+""+momentArray[1]; //주차를 계산할 날짜 
+	    //계산하고 싶은 달 시작일 1일
+	    var stDtStr = wkDtStr.substring(0,6) + "01";
+	    var stDtCal = new Date( stDtStr.substring(0,4) , stDtStr.substring(4,6) , stDtStr.substring(6,8) );
+	    //요일 구하기
+	    var weekCal = new Date( wkDtStr.substring(0,4) , ( wkDtStr.substring(4,6) - 1 ) , wkDtStr.substring(6,8) );
+	    //주차를 계산하고싶은 일 달력 생성
+	    var wkDtCal = new Date( wkDtStr.substring(0,4) , wkDtStr.substring(4,6) , wkDtStr.substring(6,8) );
+	    //매달 시작일에 따른 빼줘야 하는 값
+	    var week = new Array( 1, 0, 5, 4, 3, 2, 1 );
+	    minusDay = wkDtCal.getDate() - stDtCal.getDate() - week[ weekCal.getDay() ] ;
+	    //만약 2일부터 1주차인데 1일을 입력했을경우 혹은 년도가 바뀔경우
+	    if( ( minusDay - week[ weekCal.getDay() ] ) < 0 ){
+	        wkDtCal.setDate( stDtCal.getDate() - 1 );
+	        stDtCal.setDate( stDtCal.getDate() - wkDtCal.getDate() );
+	        minusDay = wkDtCal.getDate() - stDtCal.getDate();
+	    }
+	    var weekNm = minusDay / 7 + 1;
+		
+		$("#search_btn").html(momentArray[2]+"년 "+wkDtCal.getMonth()+"월 "+parseInt(weekNm)+"주	"+", "+$("#category2").val()+", "+$("#category3").val().split(",")[1]);
 		$("#timetable").html(resdata);
 	}
 	

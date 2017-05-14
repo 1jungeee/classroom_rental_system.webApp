@@ -15,6 +15,8 @@
     <script type="text/javascript" src="/classroom_rental/resources/lib/bootstrap/js/bootstrap.min.js"></script>
     <!-- main css load -->
 	<link rel="stylesheet" href="/classroom_rental/resources/lib/default/main-style.css">
+	<!-- moment(날짜관련) lib load -->
+	<script type="text/javascript"	src="/classroom_rental/resources/lib/moment/moment.js"></script>
 </head>
 <body>
 	<div id="wrap">
@@ -37,7 +39,6 @@
 						%>
 						<li><a href="/classroom_rental/adminRentalMng.do">강의실 대여 관리</a></li>
 						<li><a href="/classroom_rental/classroomRentalList.do">강의실 대여</a></li>
-						<li><a href="/classroom_rental/views/admin/notice_mng.jsp">공지사항 등록</a></li>
 						<li><a href="/classroom_rental/boardList.do">게시판</a></li>
 						<li class="active"><a href="/classroom_rental/userRentalMng.do">나의 신청현황</a></li>
 						<li><a href="/classroom_rental/logout.do">로그아웃</a></li>
@@ -98,7 +99,64 @@
 								</td>
 								<td>${rentalReport.user_tel}</td>
 								<td>${rentalReport.rental_name}</td>
-								<td>${rentalReport.rental_alldate}</td>
+								<td>
+									<input type="text" style="border:none;" id="rentalDate_${fn:substring(rentalReport.rental_date, 0, fn:indexOf(rentalReport.rental_date, ','))}" value="${rentalReport.rental_alldate}"/>
+								</td>
+								<input type="hidden" id="rentalDateH_${fn:substring(rentalReport.rental_date, 0, fn:indexOf(rentalReport.rental_date, ','))}" value="${rentalReport.rental_alldate}"/>
+								<script>
+									/* 날짜포맷변경 */
+									console.log($("#rentalDateH_${fn:substring(rentalReport.rental_date, 0, fn:indexOf(rentalReport.rental_date, ','))}").val());
+									var day = $("#rentalDateH_${fn:substring(rentalReport.rental_date, 0, fn:indexOf(rentalReport.rental_date, ','))}").val();
+									var year = day.substr(0,4); // 조회조건의 년도 가져오기
+									var week = day.substr(6,2); // 조회조건의 주 가져오기
+									var m = new moment(); // 날짜 포맷관련 moment 객체 선언
+									m.locale();
+									m.year(year); // 년도 셋팅
+									m.week(week); // 주 셋팅
+									console.log(m.format('L'));
+									if(m.format('L').substr(0,1) == '0'){
+										month = m.format('L').substr(1,1);
+									}else{
+										month = m.format('L').substr(0,2);
+									}
+									//월요일을 중심으로한 주차 구하기
+								    var minusDay = 0;  //차일 변수
+								    var wkDtStr = m.format('L').substr(6,4)+""+m.format('L').substr(0,2)+""+m.format('L').substr(3,2); //주차를 계산할 날짜 
+									//계산하고 싶은 달 시작일 1일
+								    var stDtStr = wkDtStr.substring(0,6) + "01";
+								    var stDtCal = new Date( stDtStr.substring(0,4) , stDtStr.substring(4,6) , stDtStr.substring(6,8) );
+								    //요일 구하기
+								    var weekCal = new Date( wkDtStr.substring(0,4) , ( wkDtStr.substring(4,6) - 1 ) , wkDtStr.substring(6,8) );
+								    //주차를 계산하고싶은 일 달력 생성
+								    var wkDtCal = new Date( wkDtStr.substring(0,4) , wkDtStr.substring(4,6) , wkDtStr.substring(6,8) );
+								    //매달 시작일에 따른 빼줘야 하는 값
+								    var week = new Array( 1, 0, 5, 4, 3, 2, 1 );
+								    minusDay = wkDtCal.getDate() - stDtCal.getDate() - week[ weekCal.getDay() ] ;
+								    //만약 2일부터 1주차인데 1일을 입력했을경우 혹은 년도가 바뀔경우
+								    if( ( minusDay - week[ weekCal.getDay() ] ) < 0 ){
+								        wkDtCal.setDate( stDtCal.getDate() - 1 );
+								        stDtCal.setDate( stDtCal.getDate() - wkDtCal.getDate() );
+								        minusDay = wkDtCal.getDate() - stDtCal.getDate();
+								    }
+								    var weekNm = minusDay / 7 + 1;
+								    console.log(day.substr(9,1));
+								    if(day.substr(9,1)=='1'){
+										$("#rentalDate_${fn:substring(rentalReport.rental_date, 0, fn:indexOf(rentalReport.rental_date, ','))}").val(m.format('L').substr(6,4)+"년 "+month+"월 "+parseInt(weekNm)+"주 월요일");
+									}else if(day.substr(9,1)=='1'){
+										$("#rentalDate_${fn:substring(rentalReport.rental_date, 0, fn:indexOf(rentalReport.rental_date, ','))}").val(m.format('L').substr(6,4)+"년 "+month+"월 "+parseInt(weekNm)+"주 화요일");
+									}else if(day.substr(9,1)=='1'){
+										$("#rentalDate_${fn:substring(rentalReport.rental_date, 0, fn:indexOf(rentalReport.rental_date, ','))}").val(m.format('L').substr(6,4)+"년 "+month+"월 "+parseInt(weekNm)+"주 수요일");
+									}else if(day.substr(9,1)=='1'){
+										$("#rentalDate_${fn:substring(rentalReport.rental_date, 0, fn:indexOf(rentalReport.rental_date, ','))}").val(m.format('L').substr(6,4)+"년 "+month+"월 "+parseInt(weekNm)+"주 목요일");
+									}else if(day.substr(9,1)=='1'){
+										$("#rentalDate_${fn:substring(rentalReport.rental_date, 0, fn:indexOf(rentalReport.rental_date, ','))}").val(m.format('L').substr(6,4)+"년 "+month+"월 "+parseInt(weekNm)+"주 금요일");
+									}else if(day.substr(9,1)=='1'){
+										$("#rentalDate_${fn:substring(rentalReport.rental_date, 0, fn:indexOf(rentalReport.rental_date, ','))}").val(m.format('L').substr(6,4)+"년 "+month+"월 "+parseInt(weekNm)+"주 토요일");
+									}else{
+										$("#rentalDate_${fn:substring(rentalReport.rental_date, 0, fn:indexOf(rentalReport.rental_date, ','))}").val(m.format('L').substr(6,4)+"년 "+month+"월 "+parseInt(weekNm)+"주 일요일");
+									}
+								    
+								</script>
 								<td>
 									<c:choose>
 								       <c:when test="${fn:length(rentalReport.rental_chk_time) > 9}">${fn:substring(rentalReport.rental_chk_time,0,8)}...</c:when>
@@ -181,7 +239,7 @@
 	<footer>
 		<div class="container">
 			<p>
-				<span>Copyright © 2016 | <a href="https://www.bible.ac.kr">bible.ac.kr</a></span>
+				<span>Copyright © 2017 | <a href="https://www.bible.ac.kr">bible.ac.kr</a></span>
 				<span style="float: right;"><a href="/classroom_rental/views/main/site_map.jsp">+사이트 맵</a></span>
 			</p>
 		</div>

@@ -41,8 +41,6 @@
 								관리</a></li>
 						<li><a href="/classroom_rental/classroomRentalList.do">강의실
 								대여</a></li>
-						<li><a href="/classroom_rental/views/admin/notice_mng.jsp">공지사항
-								등록</a></li>
 						<li><a href="/classroom_rental/boardList.do">게시판</a></li>
 						<li><a href="/classroom_rental/userRentalMng.do">나의 신청현황</a></li>
 						<li><a href="/classroom_rental/logout.do">로그아웃</a></li>
@@ -110,7 +108,7 @@
 				<footer>
 					<div class="container">
 						<p>
-							<span>Copyright © 2016 | <a href="https://www.bible.ac.kr">bible.ac.kr</a></span>
+							<span>Copyright © 2017 | <a href="https://www.bible.ac.kr">bible.ac.kr</a></span>
 							<span style="float: right;"><a
 								href="/classroom_rental/views/main/site_map.jsp">+사이트 맵</a></span>
 						</p>

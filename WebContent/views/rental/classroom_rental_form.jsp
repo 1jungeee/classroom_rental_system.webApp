@@ -5,6 +5,8 @@
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<!-- moment(날짜관련) lib load -->
+<script type="text/javascript" src="/classroom_rental/resources/lib/moment/moment.js"></script>
 
 <div class="container">
 	<!-- 강의실 예약 신청서 양식 -->
@@ -134,7 +136,40 @@ $(document).ready(function() {
 function rentalInit(){
 	document.getElementById('rentalRoomName').value = parent.document.getElementById('category2').value + "-" + parent.document.getElementById('category4').value;
 	document.getElementById('tmp_rentalRoomName').value = parent.document.getElementById('category3').value.split(",")[0];
-	document.getElementById('rentalTime').value = parent.document.getElementById('category1').value;
+	
+	var day = parent.document.getElementById('category1').value;
+	var year = day.substr(0,4); // 조회조건의 년도 가져오기
+	var week = day.substr(6,2); // 조회조건의 주 가져오기
+	var m = new moment(); // 날짜 포맷관련 moment 객체 선언
+	m.locale();
+	m.year(year); // 년도 셋팅
+	m.week(week); // 주 셋팅
+
+	//월 : momentArray[0], 일 : momentArray[1], 년 : momentArray[2]
+	var momentArray = m.format('L').split('/'); //'/'기준으로 문자열자르기
+	
+	//월요일을 중심으로한 주차 구하기
+    var minusDay = 0;  //차일 변수
+    var wkDtStr = momentArray[2]+""+momentArray[0]+""+momentArray[1]; //주차를 계산할 날짜 
+    //계산하고 싶은 달 시작일 1일
+    var stDtStr = wkDtStr.substring(0,6) + "01";
+    var stDtCal = new Date( stDtStr.substring(0,4) , stDtStr.substring(4,6) , stDtStr.substring(6,8) );
+    //요일 구하기
+    var weekCal = new Date( wkDtStr.substring(0,4) , ( wkDtStr.substring(4,6) - 1 ) , wkDtStr.substring(6,8) );
+    //주차를 계산하고싶은 일 달력 생성
+    var wkDtCal = new Date( wkDtStr.substring(0,4) , wkDtStr.substring(4,6) , wkDtStr.substring(6,8) );
+    //매달 시작일에 따른 빼줘야 하는 값
+    var week = new Array( 1, 0, 5, 4, 3, 2, 1 );
+    minusDay = wkDtCal.getDate() - stDtCal.getDate() - week[ weekCal.getDay() ] ;
+    //만약 2일부터 1주차인데 1일을 입력했을경우 혹은 년도가 바뀔경우
+    if( ( minusDay - week[ weekCal.getDay() ] ) < 0 ){
+        wkDtCal.setDate( stDtCal.getDate() - 1 );
+        stDtCal.setDate( stDtCal.getDate() - wkDtCal.getDate() );
+        minusDay = wkDtCal.getDate() - stDtCal.getDate();
+    }
+    var weekNm = minusDay / 7 + 1;
+    
+	document.getElementById('rentalTime').value = momentArray[2]+"년 "+wkDtCal.getMonth()+"월 "+parseInt(weekNm)+"주";
 	document.getElementById('tmp_rentalTime').value = parent.document.getElementById('category1').value;
 	
 	/* 건물 id 값 및 시간으로 DB 조회해서 예약 가능한 시간 리스트 가져오기 */

@@ -32,7 +32,6 @@
 						%>
 						<li><a href="/classroom_rental/adminRentalMng.do">강의실 대여 관리</a></li>
 						<li><a href="/classroom_rental/classroomRentalList.do">강의실 대여</a></li>
-						<li><a href="/classroom_rental/views/admin/notice_mng.jsp">공지사항 등록</a></li>
 						<li><a href="/classroom_rental/boardList.do">게시판</a></li>
 						<li><a href="/classroom_rental/userRentalMng.do">나의 신청현황</a></li>
 						<li><a href="/classroom_rental/logout.do">로그아웃</a></li>
@@ -77,7 +76,7 @@
 					</div>
 					<div class="col-md-4">
 						<h2>사이트 문의</h2>
-						<p class="text-justify">해당 서비스는 아직 구현이 완료되지 않아 준비중 입니다. 관련 문의사항이나 개발에 관한 의견이 있으신 분은 컴퓨터소프트웨어학과 3학년에 재학 중인 김원정 학생을 찾아 문의 해주면 정말 감사하겠습니다.</p>
+						<p class="text-justify">해당 서비스는 아직 구현이 완료되지 않아 준비중 입니다. 관련 문의사항이나 개발에 관한 의견이 있으신 분은 컴퓨터소프트웨어학과 4학년에 재학 중인 김원정 학생을 찾아 문의 해주면 정말 감사하겠습니다.</p>
 						<p><a class="btn" style="background-color:#fcf8e3;" href="#" role="button">문의하러 가기 »</a></p>
 					</div>
 				</div>
@@ -212,7 +211,7 @@
 	<footer>
 		<div class="container">
 			<p>
-				<span>Copyright © 2016 | <a href="https://www.bible.ac.kr">bible.ac.kr</a></span>
+				<span>Copyright © 2017 | <a href="https://www.bible.ac.kr">bible.ac.kr</a></span>
 				<span style="float: right;"><a href="/classroom_rental/views/main/site_map.jsp">+사이트 맵</a></span>
 			</p>
 		</div>
