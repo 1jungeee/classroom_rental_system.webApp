@@ -154,6 +154,13 @@
 								       <c:when test="${fn:length(rentalReport.rental_chk_time) <= 9}">${rentalReport.rental_chk_time}</c:when>
 								   </c:choose>
 							   	</td>
+							   	
+							   	<!--<td>
+							   	<c:choose>
+							       <c:when test="${fn:indexOf(rentalReport.rental_chk_time, '1') != -1}">0</c:when>
+								</c:choose>
+							   	</td>-->
+							   	
 								<td class="text-center">
 									<button type="button" class="btn btn-default btn-sm"
 										onClick="rentalUseReasonModalOpen('${rentalReport.rental_reason}')">

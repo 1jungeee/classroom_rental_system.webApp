@@ -99,6 +99,9 @@
 								</td>
 								<td>${rentalReport.user_tel}</td>
 								<td>${rentalReport.rental_name}</td>
+								<%-- <c:choose>
+							       <c:when test="${fn:indexOf(rentalReport.rental_name, 'galmel1') != -1}">갈멜관 301호</c:when>
+								</c:choose>  --%>
 								<td>
 									<input type="text" style="border:none;" id="rentalDate_${fn:substring(rentalReport.rental_date, 0, fn:indexOf(rentalReport.rental_date, ','))}" value="${rentalReport.rental_alldate}"/>
 								</td>

@@ -65,6 +65,7 @@
 			<div class="col-sm-10">
 				<div id="rentalTable"></div>
 			</div>
+			
 		</div>
 		<div class="form-group row">
 			<label for="rentalReason" class="col-sm-2 col-form-label">사용목적</label>
