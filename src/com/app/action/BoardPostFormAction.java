@@ -48,6 +48,7 @@ public class BoardPostFormAction implements CommandAction {
 		Board.setBoard_bodyType(multi.getParameter("board_bodyType"));
 		Board.setDate(sd.format(toDate));
 		Board.setBoard_file(multi.getFilesystemName("board_file"));
+		Board.setBoard_isAdmin(multi.getParameter("board_isAdmin"));
 
 		result = boardDao.getInstance().getBoardPost(Board);
 		request.setAttribute("result", result);

@@ -81,16 +81,32 @@
 						<c:choose>
 						    <c:when test="${fn:length(boardList) > 0}">
 						    	<c:forEach items="${boardList}" var="board" varStatus="status">
-						    		<tr>
-						    			<!-- 글번호 -->
-						    			<td class="text-center">${(fn:length(boardList)+1) - status.count}</td>
-						    			<!-- 글제목 -->
-										<td><a href="/classroom_rental/boardPostRead.do?board_index=${board.board_index}">${board.board_title}</a></td>
-						    			<!-- 글쓴이 -->
-						    			<td class="text-center">${board.user_name}</td>
-						    			<!-- 날짜 -->
-						    			<td class="text-center">${board.date}</td>
-						    		</tr>
+						    		<c:choose>
+							    		<c:when test="${board.board_isAdmin == '1'}">
+								    		<tr style="background-color: #eae9e1">
+								    			<!-- 글번호 -->
+								    			<td class="text-center">${(fn:length(boardList)+1) - status.count}</td>
+								    			<!-- 글제목 -->
+												<td><a href="/classroom_rental/boardPostRead.do?board_index=${board.board_index}">${board.board_title}</a></td>
+								    			<!-- 글쓴이 -->
+								    			<td class="text-center">${board.user_name}</td>
+								    			<!-- 날짜 -->
+								    			<td class="text-center">${board.date}</td>
+								    		</tr>
+									    </c:when>
+										<c:otherwise>
+								    		<tr>
+								    			<!-- 글번호 -->
+								    			<td class="text-center">${(fn:length(boardList)+1) - status.count}</td>
+								    			<!-- 글제목 -->
+												<td><a href="/classroom_rental/boardPostRead.do?board_index=${board.board_index}">${board.board_title}</a></td>
+								    			<!-- 글쓴이 -->
+								    			<td class="text-center">${board.user_name}</td>
+								    			<!-- 날짜 -->
+								    			<td class="text-center">${board.date}</td>
+								    		</tr>
+							   			</c:otherwise>
+						   			</c:choose>
 								</c:forEach>
 						    </c:when>
 							<c:otherwise>

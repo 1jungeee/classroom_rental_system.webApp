@@ -20,7 +20,7 @@ public class boardDao extends CommonDao {
 	public ArrayList<board> getBoardList() throws SQLException {
 		ResultSet rs = null;
 		ArrayList<board> result = new ArrayList<board>();
-		String sql = "SELECT * FROM BOARD ORDER BY TO_NUMBER(BOARD_ID) DESC";
+		String sql = "SELECT * FROM BOARD ORDER BY TO_NUMBER(BOARD_ISADMIN), TO_NUMBER(BOARD_ID) DESC";
 		rs = openConnection().executeQuery(sql);
 		while (rs.next()) {
 			board bb = new board();
@@ -32,6 +32,7 @@ public class boardDao extends CommonDao {
 			bb.setBoard_bodyType(rs.getString("BOARD_BODYTYPE"));
 			bb.setBoard_file(rs.getString("BOARD_FILE"));
 			bb.setDate(rs.getString("BOARD_DATE"));
+			bb.setBoard_isAdmin(rs.getString("BOARD_ISADMIN"));
 			result.add(bb);
 		}
 		closeConnection();
@@ -44,7 +45,7 @@ public class boardDao extends CommonDao {
 		boolean result = false;
 		String sql = "INSERT INTO BOARD VALUES(RES_ID_SEQ.NEXTVAL,'" + Board.getUser_id() + "','" + Board.getUser_name()
 				+ "','" + Board.getBoard_title() + "','" + Board.getBoard_body() + "','" + Board.getBoard_bodyType()
-				+ "','" + Board.getBoard_file() + "','" + Board.getDate() + "')";
+				+ "','" + Board.getBoard_file() + "','" + Board.getDate() + "','" + Board.getBoard_isAdmin() + "')";
 
 		try {
 			rs = openConnection().executeQuery(sql);

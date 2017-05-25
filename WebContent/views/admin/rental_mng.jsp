@@ -133,15 +133,15 @@
 								    console.log(day.substr(9,1));
 								    if(day.substr(9,1)=='1'){
 										$("#rentalDate_${fn:substring(rentalReport.rental_date, 0, fn:indexOf(rentalReport.rental_date, ','))}").val(m.format('L').substr(6,4)+"년 "+month+"월 "+parseInt(weekNm)+"주 월요일");
-									}else if(day.substr(9,1)=='1'){
+									}else if(day.substr(9,1)=='2'){
 										$("#rentalDate_${fn:substring(rentalReport.rental_date, 0, fn:indexOf(rentalReport.rental_date, ','))}").val(m.format('L').substr(6,4)+"년 "+month+"월 "+parseInt(weekNm)+"주 화요일");
-									}else if(day.substr(9,1)=='1'){
+									}else if(day.substr(9,1)=='3'){
 										$("#rentalDate_${fn:substring(rentalReport.rental_date, 0, fn:indexOf(rentalReport.rental_date, ','))}").val(m.format('L').substr(6,4)+"년 "+month+"월 "+parseInt(weekNm)+"주 수요일");
-									}else if(day.substr(9,1)=='1'){
+									}else if(day.substr(9,1)=='4'){
 										$("#rentalDate_${fn:substring(rentalReport.rental_date, 0, fn:indexOf(rentalReport.rental_date, ','))}").val(m.format('L').substr(6,4)+"년 "+month+"월 "+parseInt(weekNm)+"주 목요일");
-									}else if(day.substr(9,1)=='1'){
+									}else if(day.substr(9,1)=='5'){
 										$("#rentalDate_${fn:substring(rentalReport.rental_date, 0, fn:indexOf(rentalReport.rental_date, ','))}").val(m.format('L').substr(6,4)+"년 "+month+"월 "+parseInt(weekNm)+"주 금요일");
-									}else if(day.substr(9,1)=='1'){
+									}else if(day.substr(9,1)=='6'){
 										$("#rentalDate_${fn:substring(rentalReport.rental_date, 0, fn:indexOf(rentalReport.rental_date, ','))}").val(m.format('L').substr(6,4)+"년 "+month+"월 "+parseInt(weekNm)+"주 토요일");
 									}else{
 										$("#rentalDate_${fn:substring(rentalReport.rental_date, 0, fn:indexOf(rentalReport.rental_date, ','))}").val(m.format('L').substr(6,4)+"년 "+month+"월 "+parseInt(weekNm)+"주 일요일");

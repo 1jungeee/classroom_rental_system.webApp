@@ -9,6 +9,7 @@ public class board {
 	private String board_bodyType;
 	private String board_file;
 	private String date;
+	private String board_isAdmin;
 	
 	public String getBoard_index() {
 		return board_index;
@@ -24,6 +25,12 @@ public class board {
 	}
 	public String getUser_id() {
 		return user_id;
+	}
+	public String getBoard_isAdmin() {
+		return board_isAdmin;
+	}
+	public void setBoard_isAdmin(String board_isAdmin) {
+		this.board_isAdmin = board_isAdmin;
 	}
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;

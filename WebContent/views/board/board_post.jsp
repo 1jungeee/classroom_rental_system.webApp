@@ -69,6 +69,8 @@
 				<div id="boardPost" style="">
 				<!-- 강의실 예약 신청서 양식 -->
 					<form id="boardPostForm" action="/classroom_rental/boardPostForm.do" enctype="multipart/form-data" method="POST">
+						<!-- 글작성권한 : [1=관리자 / 2=회원] -->
+						<input type="hidden" name="board_isAdmin" value="<%=session.getAttribute("isAdmin")%>">
 						<!-- 게시글 내용 -->
 						<div class="form-group row">
 							<label for="inputTitle" class="col-sm-2 col-form-label">제목</label>
