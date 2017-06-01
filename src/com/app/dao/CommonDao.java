@@ -6,7 +6,7 @@ public class CommonDao {
 
 	// 공통적으로 쓰일 접속에 관련된 정보 변수들을 상수로 선언
 	private final String driverName = "oracle.jdbc.driver.OracleDriver";
-	private final String url = "jdbc:oracle:thin:@finalwebproject.c82x1jiwzyrm.ap-northeast-2.rds.amazonaws.com:1521:orcl";
+	private final String url = "jdbc:oracle:thin:@finalwebproject.c59i7sxeyp1n.ap-northeast-2.rds.amazonaws.com:1521:orcl";
 	private final String db_id = "root";
 	private final String db_pw = "12345678";
 	// 접속에 필요한 변수를 선언
